@@ -1,8 +1,20 @@
 import "./index.css";
 import IconLogo from "../../assets/logo.svg";
 import ImgHero from "../../assets/banner_hero.svg";
+import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from "react-icons/fa";
+import Curriculum from "../../assets/cv.pdf";
 
 function Home() {
+  const handleDownloadCV = () => {
+    
+    const link = document.createElement("a");
+    link.href = Curriculum;
+    link.download = "Curriculo_Isaias.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="home">
       <header>
@@ -33,7 +45,34 @@ function Home() {
             </h2>
             <p>Seja bem-vindo ao meu portifólio website</p>
           </div>
-          <button>Saiba mais sobre mim</button>
+          <button onClick={handleDownloadCV}>
+            <FaDownload size={16} style={{ marginRight: "8px" }} />
+            Baixar CV
+          </button>
+          {/* Icones do github, linkedin e instagram */}
+          <div className="social-icons">
+            <a
+              href="https://github.com/izazaias"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub size={30} />
+            </a>
+            <a
+              href="https://linkedin.com/in/isaias-santos1998"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaLinkedin size={30} />
+            </a>
+            <a
+              href="https://instagram.com/imisaias1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram size={30} />
+            </a>
+          </div>
         </div>
         <div className="img-hero">
           <img src={ImgHero} />
