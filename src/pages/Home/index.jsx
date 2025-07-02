@@ -1,27 +1,50 @@
 import "./index.css";
-import IconLogo from "../../assets/logo.svg";
 import ImgHero from "../../assets/banner_hero.svg";
+import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from "react-icons/fa";
+import Curriculum from "../../assets/cv.pdf";
+import Header from "../../components/Header";
+import { useEffect, useState } from "react";
+
+const words = [
+  "PROGRAMADOR",
+  "DESENVOLVEDOR",
+  "CRIADOR",
+  "SOLUCIONADOR",
+  "INOVADOR",
+  "ENTUSIASTA",
+];
+
+function TextRotator() {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+    }, 3000); // troca a cada 3 segundos
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="dynamic-text">
+      <span className="word">{words[currentWordIndex]}</span>
+    </span>
+  );
+}
 
 function Home() {
+  const handleDownloadCV = () => {
+    const link = document.createElement("a");
+    link.href = Curriculum;
+    link.download = "Curriculo_Isaias.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="home">
-      <header>
-        <div id="container-logo">
-          <a href="#">
-            <img src={IconLogo} alt="Logo" />
-            <h2>DevIzza</h2>
-          </a>
-        </div>
-        <nav>
-          <a href="#">Home</a>
-          <a href="#">Sobre</a>
-          <a href="#">Portifólio</a>
-          <a href="#">Serviços</a>
-          <a href="#">Resumo</a>
-          <a href="#">Contato</a>
-        </nav>
-      </header>
-
+      <Header />
       <section className="hero">
         <div className="text-hero">
           <div className="text-container">
@@ -29,14 +52,43 @@ function Home() {
             <h2>
               EU SOU UM
               <br />
-              PROGRAMADOR
+              <TextRotator />
             </h2>
-            <p>Seja bem-vindo ao meu portifólio website</p>
+            <p>Seja bem-vindo ao meu portfólio website</p>
           </div>
-          <button>Saiba mais sobre mim</button>
+
+          <button onClick={handleDownloadCV}>
+            <FaDownload size={16} style={{ marginRight: "8px" }} />
+            Baixar CV
+          </button>
+
+          <div className="social-icons">
+            <a
+              href="https://github.com/izazaias"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub size={30} />
+            </a>
+            <a
+              href="https://linkedin.com/in/isaias-santos1998"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaLinkedin size={30} />
+            </a>
+            <a
+              href="https://instagram.com/imisaias1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram size={30} />
+            </a>
+          </div>
         </div>
+
         <div className="img-hero">
-          <img src={ImgHero} />
+          <img src={ImgHero} alt="Banner Hero" />
         </div>
       </section>
     </div>
